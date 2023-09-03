@@ -3,6 +3,7 @@ package com.example.migaleria
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -45,6 +46,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.migaleria.ui.theme.MiGaleriaTheme
+import kotlin.system.exitProcess
 
 class MainActivityGaleria : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -85,7 +87,7 @@ fun CardMenuGaleria() {
         3 -> "La casa blanca. Whashington."
         4 -> "Universidad del Valle de Guatemala. Guatemala."
         5 -> "Oceana. Guatemala."
-        6 -> "Theodoro Palacio Flores - 2. Guatemala."
+        6 -> "Theodoro Palacio Flores. Guatemala."
         7 -> "La Aguja. Whashington DC."
         8 -> "One World Trade Center. New York City."
         9 -> "Niagara Falls. New York City."
@@ -96,8 +98,7 @@ fun CardMenuGaleria() {
         modifier = Modifier
             .fillMaxSize()
             .verticalScroll(rememberScrollState()),
-        verticalArrangement = Arrangement.Center,
-
+        verticalArrangement = Arrangement.Top,
     ){
         Box(
             modifier = Modifier
@@ -137,10 +138,11 @@ fun CardMenuGaleria() {
                 .fillMaxWidth()
                 .padding(20.dp)
                 .shadow(
-                    elevation = 9.dp,
+                    elevation = 10.dp,
                     shape = RoundedCornerShape(20.dp),
                 ),
             shape = RoundedCornerShape(20.dp),
+            color = Color.Gray,
             content = {
                 Image(
                 painter = painterResource(id = imageResource),
@@ -156,32 +158,34 @@ fun CardMenuGaleria() {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(10.dp)
-                .border(
-                    width = 2.dp,
-                    color = Color(253, 254, 254, 0),
-                    shape = RoundedCornerShape(0.dp, 0.dp, 8.dp, 8.dp)
+                .shadow(
+                    elevation = 10.dp,
+                    shape = RoundedCornerShape(5.dp),
                 )
-                .clip(RoundedCornerShape(5.dp)),
-            color = Color(146, 179, 245)
+                .height(115.dp),
+            color = Color.LightGray
         ) {
             Column {
                 Text(
-                    text = "Lugar: $textoResource",
+                    text = textoResource,
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(10.dp),
                     color = Color.Black,
                     fontSize = 20.sp,
                     textAlign = TextAlign.Justify,
+                    fontStyle = FontStyle.Italic,
                 )
                 Text(
-                    text = "By. Sergio Orellana 221122",
+                    text = "By: Sergio Orellana 221122 - (2023)",
                     modifier = Modifier
                         .padding(10.dp)
-                        .fillMaxWidth(),
+                        .fillMaxWidth()
+                        .align(alignment = Alignment.End),
                     color = Color.Black,
                     fontSize = 15.sp,
-                    fontWeight = FontWeight.Bold
+                    fontWeight = FontWeight.Bold,
+                    textAlign = TextAlign.Right,
                 )
             }
 
@@ -203,7 +207,7 @@ fun CardMenuGaleria() {
                     }
                 },
                 modifier = Modifier
-                    .padding(20.dp)
+                    .padding(10.dp)
                     .width(150.dp)
                     .shadow(
                         elevation = 9.dp,
@@ -219,7 +223,8 @@ fun CardMenuGaleria() {
                     fontSize = 15.sp,
                     modifier = Modifier
                         .padding(5.dp),
-                    fontStyle = FontStyle.Normal
+                    fontStyle = FontStyle.Normal,
+                    fontWeight = FontWeight.Bold
                 )
             }
             Button(
@@ -230,7 +235,7 @@ fun CardMenuGaleria() {
                         result = 1
                     }                },
                 modifier = Modifier
-                    .padding(15.dp)
+                    .padding(10.dp)
                     .width(150.dp)
                     .shadow(
                         elevation = 9.dp,
@@ -246,7 +251,8 @@ fun CardMenuGaleria() {
                     fontSize = 15.sp,
                     modifier = Modifier
                         .padding(5.dp),
-                    fontStyle = FontStyle.Normal
+                    fontStyle = FontStyle.Normal,
+                    fontWeight = FontWeight.Bold
                 )
             }
         }
