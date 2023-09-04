@@ -225,8 +225,9 @@ fun CardMenuPrincipal() {
             )
             Button(
                 onClick = {
-                    if (ValidUser(text, password)) {
+                    if (UsuariosValidos(text, password)) {
                         val intent = Intent(context, MainActivityGaleria::class.java)
+                        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
                         context.startActivity(intent)
                     }else{
                         Toast.makeText(context, "Usuario o contraseña incorrectos", Toast.LENGTH_SHORT).show()
@@ -260,7 +261,8 @@ fun CardMenuPrincipal() {
     }
 }
 
-private val usuarios = mapOf(
+// Se crea un mapa con los usuarios y contraseñas validos
+private val Usuarios = mapOf(
     "Sergio2104" to "12345678",
     "Sergio210" to "123456",
     "Sergio21" to "12345",
@@ -268,8 +270,9 @@ private val usuarios = mapOf(
     "Sergio" to "123",
 )
 
-private fun ValidUser(text: String, text2: String): Boolean {
-    return usuarios[text] == text2
+// Se valida que el usuario y contraseña ingresados sean validos
+private fun UsuariosValidos(text: String, text2: String): Boolean {
+    return Usuarios[text] == text2
 }
 
 @Preview(

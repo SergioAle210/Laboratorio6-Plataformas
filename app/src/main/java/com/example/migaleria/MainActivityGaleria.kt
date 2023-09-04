@@ -59,8 +59,9 @@ class MainActivityGaleria : ComponentActivity() {
             }
         }
     }
+    @Deprecated("Deprecated in Java", ReplaceWith("finishAffinity()"))
     override fun onBackPressed() {
-
+        finishAffinity()
     }
 }
 
@@ -107,6 +108,7 @@ fun CardMenuGaleria() {
             Button(
                 onClick = {
                     val intent = Intent(context, MainActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
                     context.startActivity(intent)
                   },
                 modifier = Modifier
