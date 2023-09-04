@@ -70,6 +70,10 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+    @Deprecated("Deprecated in Java", ReplaceWith("finishAffinity()"))
+    override fun onBackPressed() {
+        finishAffinity()
+    }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -78,8 +82,6 @@ fun CardMenuPrincipal() {
     val context = LocalContext.current
     var text by rememberSaveable { mutableStateOf("") }
     var password by rememberSaveable { mutableStateOf("") }
-    val Correo = "sergioalejandro210@gmail.com"
-    val Contrasena = "123456"
 
     Column (
         modifier = Modifier
@@ -151,7 +153,12 @@ fun CardMenuPrincipal() {
 
             TextField(
                 value = text,
-                onValueChange = { text = it },
+                onValueChange = {
+                    if (it.length <= 10) {
+                        text = it
+                    }
+                    else Toast.makeText(context,"No se pueden ingresar mas de 10 caracteres", Toast.LENGTH_SHORT).show()
+                },
                 label = { Text("Correo electrónico") },
                 modifier = Modifier
                     .fillMaxWidth()
@@ -187,13 +194,18 @@ fun CardMenuPrincipal() {
             )
             TextField(
                 value = password,
-                onValueChange = { password = it },
+                onValueChange = {
+                    if (it.length <= 8) {
+                        password = it
+                    }
+                    else Toast.makeText(context,"No se pueden ingresar mas de 8 caracteres", Toast.LENGTH_SHORT).show()
+                                },
                 label = { Text("Contraseña") },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(10.dp),
                 visualTransformation = PasswordVisualTransformation(),
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password, imeAction = ImeAction.Go),
                 leadingIcon = ({
                     Icon(
                         painter = painterResource(R.drawable.lock_foreground),
@@ -213,9 +225,8 @@ fun CardMenuPrincipal() {
             )
             Button(
                 onClick = {
-                    if (text == Correo && password == Contrasena) {
+                    if (ValidUser(text, password)) {
                         val intent = Intent(context, MainActivityGaleria::class.java)
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                         context.startActivity(intent)
                     }else{
                         Toast.makeText(context, "Usuario o contraseña incorrectos", Toast.LENGTH_SHORT).show()
@@ -224,25 +235,41 @@ fun CardMenuPrincipal() {
                 modifier = Modifier
                     .width(300.dp)
                     .padding(20.dp)
-                    .align(alignment = Alignment.CenterHorizontally),
+                    .align(alignment = Alignment.CenterHorizontally)
+                    .shadow(
+                        elevation = 9.dp,
+                        shape = RoundedCornerShape(20.dp),
+                    ),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color.Gray
-                ),
-                content = {
-                    Text(
-                        text = "Log in",
-                        textAlign = TextAlign.Center,
-                        fontSize = 20.sp,
-                        modifier = Modifier
-                            .padding(7.dp)
-                            .fillMaxWidth(),
-                        fontStyle = FontStyle.Normal,
-                        fontWeight = FontWeight.Bold
-                    )
-                }
+                )
             )
+            {
+                Text(
+                    text = "Login",
+                    textAlign = TextAlign.Center,
+                    fontSize = 20.sp,
+                    modifier = Modifier
+                        .padding(7.dp)
+                        .fillMaxWidth(),
+                    fontStyle = FontStyle.Normal,
+                    fontWeight = FontWeight.Bold
+                )
+            }
         }
     }
+}
+
+private val usuarios = mapOf(
+    "Sergio2104" to "12345678",
+    "Sergio210" to "123456",
+    "Sergio21" to "12345",
+    "Sergio2" to "1234",
+    "Sergio" to "123",
+)
+
+private fun ValidUser(text: String, text2: String): Boolean {
+    return usuarios[text] == text2
 }
 
 @Preview(

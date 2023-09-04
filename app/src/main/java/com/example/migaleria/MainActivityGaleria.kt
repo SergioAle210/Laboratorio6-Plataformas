@@ -3,11 +3,9 @@ package com.example.migaleria
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
-import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -33,7 +31,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -46,7 +43,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.migaleria.ui.theme.MiGaleriaTheme
-import kotlin.system.exitProcess
 
 class MainActivityGaleria : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,6 +58,9 @@ class MainActivityGaleria : ComponentActivity() {
                 }
             }
         }
+    }
+    override fun onBackPressed() {
+
     }
 }
 
@@ -108,7 +107,6 @@ fun CardMenuGaleria() {
             Button(
                 onClick = {
                     val intent = Intent(context, MainActivity::class.java)
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                     context.startActivity(intent)
                   },
                 modifier = Modifier
@@ -258,7 +256,6 @@ fun CardMenuGaleria() {
         }
 
     }
-
 }
 
 @Preview(
