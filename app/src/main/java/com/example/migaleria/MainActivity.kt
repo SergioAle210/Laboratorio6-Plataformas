@@ -271,8 +271,8 @@ private val Usuarios = mapOf(
 )
 
 // Se valida que el usuario y contraseña ingresados sean validos
-private fun UsuariosValidos(text: String, text2: String): Boolean {
-    return Usuarios[text] == text2
+private fun UsuariosValidos(Usuario: String, Contrasena: String): Boolean {
+    return Usuarios[Usuario] == Contrasena
 }
 
 @Preview(
