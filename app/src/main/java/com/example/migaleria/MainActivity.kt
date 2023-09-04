@@ -227,7 +227,7 @@ fun CardMenuPrincipal() {
                 onClick = {
                     if (UsuariosValidos(text, password)) {
                         val intent = Intent(context, MainActivityGaleria::class.java)
-                        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                         context.startActivity(intent)
                     }else{
                         Toast.makeText(context, "Usuario o contraseña incorrectos", Toast.LENGTH_SHORT).show()

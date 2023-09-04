@@ -108,7 +108,7 @@ fun CardMenuGaleria() {
             Button(
                 onClick = {
                     val intent = Intent(context, MainActivity::class.java)
-                    intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                     context.startActivity(intent)
                   },
                 modifier = Modifier
